@@ -1,0 +1,15 @@
+{
+	"wrongToken":"Token không hợp lệ",
+	"expiredToken":"Token hết hiệu lực",
+	"errorNoPermission":"Bạn không đủ quyền để thực hiện tính năng này",
+	"hasError":"Có lỗi xảy ra, vui lòng thử lại sau !",
+	"loginFail":"Sai tên tài khoản hoặc mật khẩu.",
+	"accountDeactive":"Tài khoản của bạn chưa được kích hoạt.",
+	"usernameExist":"Username đã tồn tại",
+	"usernameRequired":"Vui lòng nhập username",
+	"passwordRequired":"Vui lòng nhập password",
+	"productNameRequired":"Vui lòng nhập tên sản phẩm",
+	"productQuantityRequired":"Vui lòng nhập số lượng sản phẩm",
+	"productPriceRequired":"Vui lòng nhập giá sản phẩm",
+	"productCategoryRequired":"Vui lòng chọn loại sản phẩm"
+}
