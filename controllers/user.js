@@ -186,7 +186,7 @@ user.refreshToken = async (req,res)=>{
 }
 
 user.getOrderHistory = async (req,res)=>{
-	let fetchResults = await userModel.getOrder(req.currentUser._id)
+	let fetchResults = await userModel.getOrder(req.currentUser._id.toString())
 	if (fetchResults.status==="ERROR") {
 		logHelper.log('error',data)
 		res.status(200).json({

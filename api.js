@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const winston = require('winston')
 const { format } = require('winston');
-
+app.set('superSecret', '1ClickSecretKey@23101995');
 const config = require('./config');
 const limit = require('./rate_limit')
 

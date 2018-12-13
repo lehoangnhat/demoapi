@@ -1,5 +1,6 @@
 let user = {}
 const multiLanguage = require('../helper/multi-language')
+const jwt = require('jsonwebtoken')
 
 user.isLoggedIn = (req,res,next) => {
 	let token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['token'];
