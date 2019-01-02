@@ -185,6 +185,67 @@ user.refreshToken = async (req,res)=>{
   	}
 }
 
+user.getProfile = async (req,res) => {
+	let userData = await userModel.getUsers({_id: req.params.userID})
+	if (userData.status === "ERROR") {
+		logHelper.log('error',data)
+		res.status(200).json({
+			status:"ERROR",
+			data: {
+				code:'GENERAL_ERROR',
+				message:multiLanguage.getString('hasError','vn')
+			}
+		})
+	}
+	else {
+		res.status(200).json({
+			status:"SUCCESS",
+			data: userData.items[0]
+		})
+	}
+}
+
+user.updateProfile = async (req,res) => {
+	let newData = {}
+	if (req.body.lastName) {
+		newData.lastName = req.body.lastName
+	}
+	if (req.body.firstName) {
+		newData.firstName = req.body.firstName
+	}
+	if (req.body.email) {
+		newData.email = req.body.email
+	}
+
+	if (req.body.address) {
+		newData.address = req.body.address
+	}
+
+	if (req.body.dob) {
+		newData.dob = req.body.dob
+	}
+	let condition = {
+		_id: req.currentUser._id.toString()
+	}
+	if (req.currentUser.role === userModel.ROLE_ADMIN && req.body._id) {
+		condition._id = req.body._id
+	}
+	let updateUser = await userModel.updateUser({condition: condition, data: newData})
+	if (updateUser.status==="ERROR") {
+		logHelper.log('error',data)
+		res.status(200).json({
+			status:"ERROR",
+			data: {
+				code:'GENERAL_ERROR',
+				message:multiLanguage.getString('hasError','vn')
+			}
+		})
+	}
+	else {
+		res.status(200).json(updateUser)
+	}
+}
+
 user.getOrderHistory = async (req,res)=>{
 	let fetchResults = await userModel.getOrder(req.currentUser._id.toString())
 	if (fetchResults.status==="ERROR") {
@@ -215,6 +276,14 @@ user.addProduct = async (req,res)=>{
 		dateCreated: Date.now(),
 		dateModified:0,
 		status:productModel.STATUS_NOT_VERIFED
+	}
+
+	if (req.currentUser.role === userModel.ROLE_ADMIN) {
+		productData.featured = true
+		productData.status = productModel.STATUS_VERIFIED
+	}
+	else {
+		productData.featured = false
 	}
 
 	let result = await productModel.addProduct(productData)

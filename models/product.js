@@ -5,14 +5,20 @@ product.STATUS_VERIFIED = 1
 product.STATUS_NOT_VERIFED = 0
 product.STATUS_INACTIVE = 2
 
+const mapData = (rawData)=>{
+    return rawData
+}
 
 product.updateProduct = async (updateData) => {
     updateData.collection = 'products'
 	
-	let results = await dbService.query("update",updateData)
+    let results = await dbService.query("update",updateData)
 	if (results.status==="SUCCESS") {
 		results.data = mapData(results.data)
-	}
+    }
+    else {
+        results = false
+    }
 	return results
 }
 
@@ -25,15 +31,19 @@ product.addProduct = async (productData)=>{
         data:productData
     }
 
-    let result = await dbService.query("create",productObj)
-	if (result.status==="SUCCESS") {
-		result = result.data
-	}
-	else {
-		result = false
-	}
-
-	return result
+    let currentProduct = await product.searchProduct({},1,1)
+    
+    if (currentProduct) {
+        productData.id = currentProduct.total + 1
+        let result = await dbService.query("create",productObj)
+        if (result.status==="SUCCESS") {
+            result = result.data
+        }
+        else {
+            result = false
+        }
+    }
+    return currentProduct
 }
 
 product.getDetail = async (productID) => {

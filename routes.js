@@ -16,6 +16,8 @@ router.get('/api/user/order', middlewareUser.isLoggedIn, user.getOrderHistory)
 router.post('/api/user/product', middlewareUser.isLoggedIn, user.addProduct)
 router.post('/api/user/order', middlewareUser.isLoggedIn, order.create)
 router.get('/api/user/product', middlewareUser.isLoggedIn, user.getMyProduct)
+router.get('/api/user/:userID', user.getProfile)
+router.put('/api/user/', middlewareUser.isLoggedIn, user.updateProfile)
 
 //PRODUCT API ROUTE
 router.get('/api/product/featured', product.getFeatured)

@@ -6,7 +6,7 @@ category.searchCategory = async (condition,page,limit) => {
         collection:'categories',
         condition:condition,
         page:1,
-        limit:10
+        limit:30
     }
 
     if (page) {
@@ -16,10 +16,7 @@ category.searchCategory = async (condition,page,limit) => {
     if (limit || limit===0) {
         categoryObj.limit = limit
     }
-
     let result = await dbService.query("read",categoryObj)
-    console.log('api')
-    console.log(result)
     if (result.status==="SUCCESS") {
 		result = result.data
 	}

@@ -4,9 +4,11 @@ const logHelper = require('../helper/logger')
 const multiLanguage = require('../helper/multi-language')
 
 cateogry.searchCategory = async (req,res)=>{
-    let condition = {
-		$text:{
-			$search:req.query.query
+	let condition = {}
+	
+	if (req.query.query) {
+		condition.$text = {
+			$search:req.query.query || ''
 		}
 	}
 	let page = 1
