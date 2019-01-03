@@ -197,10 +197,19 @@ user.getProfile = async (req,res) => {
 			}
 		})
 	}
+	else if (userData.data.total === 0) {
+		res.status(200).json({
+			status:"SUCCESS",
+			data: {
+				code:'USER_NOT_FOUND',
+				message:multiLanguage.getString('hasError','vn')
+			}
+		})
+	} 
 	else {
 		res.status(200).json({
 			status:"SUCCESS",
-			data: userData.items[0]
+			data: userData.data.items[0]
 		})
 	}
 }
@@ -213,6 +222,7 @@ user.updateProfile = async (req,res) => {
 	if (req.body.firstName) {
 		newData.firstName = req.body.firstName
 	}
+
 	if (req.body.email) {
 		newData.email = req.body.email
 	}
