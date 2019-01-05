@@ -50,7 +50,7 @@ product.getDetail = async (productID) => {
     let productObj = {
         collection:'products',
         condition:{
-            id: productID
+            id: parseInt(productID,10)
         }
     }
 

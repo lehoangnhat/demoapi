@@ -120,6 +120,9 @@ product.updateProduct = async (req,res) => {
 	if (req.body.description) {
 		productData.description = req.body.description
 	}
+	if (req.body.pstate) {
+		productData.pstate = req.body.pstate
+	}
 	if (req.body.status) {
 		productData.status = req.body.status
 	}

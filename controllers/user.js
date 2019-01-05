@@ -282,6 +282,7 @@ user.addProduct = async (req,res)=>{
 		images:req.body.images || [],
 		categoryID:req.body.categoryID,
 		description:req.body.description || "",
+		pstate:req.body.pstate||"",
 		creatorID: req.currentUser._id,
 		dateCreated: Date.now(),
 		dateModified:0,
